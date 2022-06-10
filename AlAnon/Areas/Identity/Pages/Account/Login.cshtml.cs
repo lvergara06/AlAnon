@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using AlAnon.Data;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace AlAnon.Areas.Identity.Pages.Account
 {
@@ -121,7 +122,16 @@ namespace AlAnon.Areas.Identity.Pages.Account
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
 
                 ApplicationUser signedUser = await _userManager.FindByEmailAsync(Input.Email);
-                var result = await _signInManager.PasswordSignInAsync(signedUser.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = new SignInResult();
+
+                if (signedUser == null || string.IsNullOrEmpty(signedUser.UserName))
+                {
+                    result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                }
+                else
+                {
+                    result = await _signInManager.PasswordSignInAsync(signedUser.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                }
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

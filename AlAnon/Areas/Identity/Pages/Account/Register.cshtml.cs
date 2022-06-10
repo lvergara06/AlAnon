@@ -124,12 +124,12 @@ namespace AlAnon.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 user.Email = Input.Email;
                 user.Nombre = Input.Nombre;
-                if(Input.Grupo == null)
+                if (Input.Grupo == null)
                 {
                     Input.Grupo = "";
                 }
                 user.Grupo = Input.Grupo;
-                
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -150,6 +150,19 @@ namespace AlAnon.Areas.Identity.Pages.Account
 
                     //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                     //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    if(string.IsNullOrEmpty(user.Grupo))
+                    {
+                        user.Grupo = String.Empty;
+                    }
+                    var temps = _userManager.AddClaimsAsync(user, new Claim[]
+                    {
+                    new Claim(JwtClaimTypes.Name,user.UserName),
+                    new Claim(JwtClaimTypes.GivenName, user.Nombre),
+                    new Claim("Grupo", user.Grupo),
+                    new Claim(JwtClaimTypes.Role, SD.Usuario)
+                    }).Result;
+
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });

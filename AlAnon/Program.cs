@@ -9,8 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using AlAnon.Repository;
 using AlAnon.Repository.IRepository;
 using AlAnon.Areas.Identity.Initializer;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using AlAnon.Helper;
 
- var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -18,7 +20,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider); ;
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
@@ -35,6 +38,21 @@ builder.Services.AddScoped<IInfoRepository, InfoRepository>();
 
 // Add DB Seeded with Admin Role
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
+// Add Repository for User Roles
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+// Add Email Server
+builder.Services.AddTransient<IEmailSender, MailKitEmailSender>();
+builder.Services.Configure<MailKitEmailSenderOptions>(options =>
+{
+    options.Host_Address =builder.Configuration["ExternalProviders:MailKit:SMTP:Address"];
+    options.Host_Port = Convert.ToInt32(builder.Configuration["ExternalProviders:MailKit:SMTP:Port"]);
+    options.Host_Username = builder.Configuration["ExternalProviders:MailKit:SMTP:Account"];
+    options.Host_Password = builder.Configuration["ExternalProviders:MailKit:SMTP:Password"];
+    options.Sender_EMail = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderEmail"];
+    options.Sender_Name = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderName"];
+});
 
 var app = builder.Build();
 

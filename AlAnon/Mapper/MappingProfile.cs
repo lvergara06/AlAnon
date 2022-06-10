@@ -1,4 +1,5 @@
-﻿using AlAnon.Models;
+﻿using AlAnon.Data;
+using AlAnon.Models;
 using AlAnon.Models.Dtos;
 using AutoMapper;
 
@@ -10,6 +11,7 @@ namespace AlAnon.Mapper
         {
             CreateMap<Grupo, GrupoDto>().ReverseMap();
             CreateMap<Informacion, InformacionDto>().ReverseMap();
+            CreateMap<ApplicationUser, UsuarioDto>().ReverseMap();
         }
     }
 }

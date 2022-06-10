@@ -5,6 +5,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using AlAnon.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,10 @@ namespace AlAnon.Areas.Identity.Pages.Account
 {
     public class ConfirmEmailChangeModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public ConfirmEmailChangeModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public ConfirmEmailChangeModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -41,14 +42,14 @@ namespace AlAnon.Areas.Identity.Pages.Account
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userId}'.");
+                return NotFound($"No se pudo encontrar usuario '{userId}'.");
             }
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ChangeEmailAsync(user, email, code);
             if (!result.Succeeded)
             {
-                StatusMessage = "Error changing email.";
+                StatusMessage = "Error cambiando email.";
                 return Page();
             }
 
@@ -57,12 +58,12 @@ namespace AlAnon.Areas.Identity.Pages.Account
             var setUserNameResult = await _userManager.SetUserNameAsync(user, email);
             if (!setUserNameResult.Succeeded)
             {
-                StatusMessage = "Error changing user name.";
+                StatusMessage = "Error cambiando usuario.";
                 return Page();
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Thank you for confirming your email change.";
+            StatusMessage = "Gracias por confirmar su cambio de email.";
             return Page();
         }
     }

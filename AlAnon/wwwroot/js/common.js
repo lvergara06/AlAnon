@@ -18,3 +18,6 @@ window.ShowDeleteConfirmation = () => {
 window.HideDeleteConfirmation = () => {
     $('#deleteConfirmationModal').modal('hide');
 }
+function showText(toggleText) {
+    toggleText.classList.toggle("active");
+}

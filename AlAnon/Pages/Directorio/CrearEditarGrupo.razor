@@ -21,7 +21,7 @@
 		<EditForm Model="Grupo" OnValidSubmit="CrearEditar">
 			<DataAnnotationsValidator />
 			@*<ValidationSummary/>*@
-			<div class="form-group col-6">
+			<div class="form-group col-8">
 					<label>Tipo</label>
 					<InputSelect @bind-Value="Grupo.TipoDeJunta" class="form-select">
 						<option value="" disabled="disabled" selected>--Seleccionar Tipo--</option>
@@ -32,19 +32,18 @@
 				</InputSelect>
 				<ValidationMessage For="()=>Grupo.TipoDeJunta"></ValidationMessage>
 			</div>
-			<div class="form-group col-6">
-					<label>Area</label>
+			<div class="form-group col-8">
+					<label>Area</label> 
 					<InputSelect @bind-Value="Grupo.Area" class="form-select">
 						<option value="" disabled="disabled" selected>--Seleccionar Area--</option>
 						@foreach (var area in SD.ListaDeAreas)
 						{
 						<option value="@area">@area</option>
 						}
-
 				</InputSelect>
 				<ValidationMessage For="()=>Grupo.Area"></ValidationMessage>
 			</div>
-			<div class="form-group col-6">
+			<div class="form-group col-8">
 					<label>Alanon o Alateen?</label>
 					<InputSelect @bind-Value="Grupo.Alateen" class="form-select">
 						<option value="" disabled="disabled" selected>--Seleccionar--</option>

@@ -10,8 +10,7 @@ namespace AlAnon.Models.Dtos
         public string Nombre { get; set; }
         [Required(ErrorMessage = "El tipo del grupo es necesario: Presencial, Hibrida, o Electronica")]
         public string TipoDeJunta { get; set; }
-        [Required (ErrorMessage = "El area del grupo es necesaria")]
-        public string Area { get; set; }
+        public string Area { get; set; } 
         public string Direccion { get; set; } = "";
         [Required (ErrorMessage = "El dia que se junta el grupo es necesario")]
         public string Dias { get; set; }

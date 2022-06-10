@@ -3,7 +3,7 @@
 @inject IGrupoRepository _grupoRepository
 @inject IInfoRepository _infoRepository
 @inject IJSRuntime _jsRuntime
-@*@attribute [Authorize]*@
+@*@attribute [Authorize(Roles = "Admins")]*@
 
 <_DeleteConfirmation isParentComponentProcessing="isLoading" DeleteFunc="DeleteConfirmed"></_DeleteConfirmation>
 <div class="row mt-4">
@@ -51,40 +51,40 @@
 								<div class="card-body">
 									@*h5 class="card-title">Info card title</h5>*@
 									<div class="row">
-										<div class="col">Tipo:</div>
+										<div class="col" style="font-weight:bold;">Tipo:</div>
 										<div class="col-auto">@grupo.TipoDeJunta</div>
 									</div>
 									<div class="row">
 										@*<div class="col-xs-4 hidden-sm hidden-md hidden-lg">Direccion</div>*@
-										<div class="col">Area:</div>
+										<div class="col" style="font-weight:bold;">Area:</div>
 										<div class="col-auto">@grupo.Area</div>
 									</div>
 									<div class="row">
-										<div class="col">Alanon o Alateen:</div>
+										<div class="col" style="font-weight:bold;">Alanon o Alateen:</div>
 										<div class="col-auto">@grupo.Alateen</div>
 									</div>
 									<div class="row">
-										<div class="col">Direccion:</div>
-										<div class="col-auto">@grupo.Direccion</div>
+										<div class="col-5" style="font-weight:bold;">Direccion:</div>
+										<div class="col" style="direction: rtl;">@grupo.Direccion</div>
 									</div>
 									<div class="row">
-										<div class="col">Dias:</div>
+										<div class="col" style="font-weight:bold;">Dias:</div>
 										<div class="col-auto">@grupo.Dias</div>
 									</div>
 									<div class="row">
-										<div class="col">Horas:</div>
+										<div class="col" style="font-weight:bold;">Horas:</div>
 										<div class="col-auto">@grupo.Horas</div>
 									</div>
 									<div class="row">
-										<div class="col">Numero:</div>
-										<div class="col-auto">@grupo.Numero</div>
+										<div class="col-5" style="font-weight:bold;">Numero:</div>
+										<div class="col" style="direction: rtl;">@grupo.Numero</div>
 									</div>
 									<div class="row">
-										<div class="col">Zoom Id:</div>
+										<div class="col" style="font-weight:bold;">Zoom Id:</div>
 										<div class="col-auto">@grupo.NumeroDeSala</div>
 									</div>
 									<div class="row">
-										<div class="col">Clave:</div>
+										<div class="col" style="font-weight:bold;">Clave:</div>
 										<div class="col-auto">@grupo.Contraseña</div>
 									</div>
 								</div>
@@ -114,7 +114,7 @@
 @code {
 	private List<GrupoDto> ListaDeGrupos { get; set; } = new List<GrupoDto>();
 	private GrupoDto Grupo = new();
-	private bool isLoading { get; set; } = false;
+	private bool isLoading { get; set; } = true;
 	private int savedId;
 	private InformacionDto Informacion = new();
 	private string numeroGrabado = string.Empty;
