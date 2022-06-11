@@ -99,6 +99,7 @@ namespace AlAnon.Areas.Identity.Pages.Account
             if (user == null)
             {
                 // Don't reveal that the user does not exist
+                ModelState.AddModelError(string.Empty, "Usuario con este correo electronico no existe.");
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
 

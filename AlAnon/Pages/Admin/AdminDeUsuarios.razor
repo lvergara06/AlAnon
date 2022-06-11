@@ -37,24 +37,24 @@
 								@*h5 class="card-title">Info card title</h5>*@
 								<div class="row">
 									<div class="col-4" style="font-weight:bold;">Email:</div>
-									<div class="col-xs-9" style="direction: rtl;">@Usuario.Email</div>
+									<div class="col" style="direction: rtl;">@Usuario.Email</div>
 								</div>
 								<div class="row">
 									@*<div class="col-xs-4 hidden-sm hidden-md hidden-lg">Direccion</div>*@
-									<div class="col" style="font-weight:bold;">Grupo:</div>
-									<div class="col-auto" style="direction: rtl;">@Usuario.Grupo</div>
+									<div class="col-4" style="font-weight:bold;">Grupo:</div>
+									<div class="col" style="direction: rtl;">@Usuario.Grupo</div>
 								</div>
 								<div class="row">
 									<div class="col" style="font-weight:bold;">Tel:</div>
-									<div class="col-auto" style="direction: rtl;">@Usuario.PhoneNumber</div>
+									<div class="col" style="direction: rtl;">@Usuario.PhoneNumber</div>
 								</div>
 								<div class="row">
 									<div class="col-4" style="font-weight:bold;">Usuario:</div>
-									<div class="col-xs-9" style="direction: rtl;">@Usuario.UserName</div>
+									<div class="col" style="direction: rtl;">@Usuario.UserName</div>
 								</div>
 								<div class="row">
 									<div class="col" style="font-weight:bold;">Puede Manejar?:</div>
-									<div class="col-auto" style="direction: rtl;">@(Usuario.Roles.Contains(SD.Admin)? "Si": "No")</div>
+									<div class="col" style="direction: rtl;">@(Usuario.Roles.Contains(SD.Admin)? "Si": "No")</div>
 								</div>
 							</div>
 							<div class="card-footer">
