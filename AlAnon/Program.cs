@@ -11,12 +11,18 @@ using AlAnon.Repository.IRepository;
 using AlAnon.Areas.Identity.Initializer;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using AlAnon.Helper;
+using Syncfusion.Blazor;
+using AlAnon.Services.IServices;
+using AlAnon.Services;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+
+// DBContextFactory removes second-operation-started-on-this-context
+builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -24,6 +30,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
     .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider); ;
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+// Add SyncFusion for Text Editor
+builder.Services.AddSyncfusionBlazor(options => { options.IgnoreScriptIsolation = true; });
 
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<ApplicationUser>>();
 
@@ -42,6 +51,9 @@ builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 // Add Repository for User Roles
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
+// Add Repository for Calendar Events
+builder.Services.AddScoped<ICalendarioRepository, CalendarioRepository>();
+
 // Add Email Server
 builder.Services.AddTransient<IEmailSender, MailKitEmailSender>();
 builder.Services.Configure<MailKitEmailSenderOptions>(options =>
@@ -53,6 +65,15 @@ builder.Services.Configure<MailKitEmailSenderOptions>(options =>
     options.Sender_EMail = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderEmail"];
     options.Sender_Name = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderName"];
 });
+
+// Add File Handler
+builder.Services.AddScoped<IFileService, FileService>();
+
+// Add Repository for Inicio
+builder.Services.AddScoped<IInicioRepository, InicioRepository>();
+
+// Add MudBlazor DataGrid
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 

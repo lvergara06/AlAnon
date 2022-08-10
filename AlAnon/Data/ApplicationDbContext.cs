@@ -14,6 +14,8 @@ namespace AlAnon.Data
         public DbSet<Grupo> Grupos { get; set; }
         public DbSet<ApplicationUser> Miembros { get; set; }
         public DbSet<Informacion> Informacion { get; set; }
+        public DbSet<Inicio> Inicio { get; set; }
+        public DbSet<CalendarioEvento> CalendarioEventos { get; set; }
 
     }
 }

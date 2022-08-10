@@ -8,8 +8,9 @@ namespace AlAnon.Models.Dtos
 		[Required]
 		[DataType(DataType.PhoneNumber)]
 		public string NumeroIntegrupal { get; set; } = "(000) 000-0000";
-		public bool EsValida { get; set; } = false;
+		public bool EsValida { get; set; }
 		public DateTime DiaInsertada { get; set; }
 		public DateTime DiaCerrada { get; set; }
+		public string UsuarioId { get; set; } = string.Empty;
 	}
 }

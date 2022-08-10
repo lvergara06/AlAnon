@@ -12,6 +12,8 @@ namespace AlAnon.Mapper
             CreateMap<Grupo, GrupoDto>().ReverseMap();
             CreateMap<Informacion, InformacionDto>().ReverseMap();
             CreateMap<ApplicationUser, UsuarioDto>().ReverseMap();
+            CreateMap<Inicio, InicioDto>().ReverseMap();
+            CreateMap<CalendarioEvento, CalendarioEventoDto>().ReverseMap();
         }
     }
 }

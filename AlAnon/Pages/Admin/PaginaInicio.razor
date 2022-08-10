@@ -1,0 +1,161 @@
+﻿@page "/ManejarInicio"
+
+@inject IInicioRepository _inicioRepository
+@inject IJSRuntime _jsRuntime
+@inject IFileService _fileUpload
+@inject NavigationManager _navigationManager
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="row mt-4">
+	<h4 class="card-title text-primary">Manejar Pagina De Inicio</h4>
+	@if (isLoading)
+	{
+		//Loading Symbol
+		<div class="text-center pt-4">
+			<img src="/images/loading.gif">
+		</div>
+	}
+	else
+	{
+		<div class="col-md-2">
+			<label>Editar Imagen Principal</label>
+			<img src="@InicioDto.ImagenDeInicio" class="w-100" />
+		</div>
+		<EditForm Model="InicioDto" OnValidSubmit="CambiarInicio">
+			<DataAnnotationsValidator />
+			<div class="form-group pt-4 col-6">
+				<InputFile OnChange="HandleImageUpload"></InputFile>
+			</div>
+			<div class="col-lg-4 col-md-6 pb-4">
+				<div class="form-group">
+					<label>Editar Titulo Principal</label>
+					<SfRichTextEditor @bind-Value="InicioDto.Titulo">
+						<RichTextEditorToolbarSettings Items="@Tools" />
+					</SfRichTextEditor>
+					<ValidationMessage For="()=>InicioDto.Titulo"></ValidationMessage>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 pb-4">
+				<div class="form-group">
+					<label>Editar Parrafo Principal</label>
+					<SfRichTextEditor @bind-Value="InicioDto.ParrafoPrincipal">
+						<RichTextEditorToolbarSettings Items="@Tools" />
+					</SfRichTextEditor>
+					<ValidationMessage For="()=>InicioDto.ParrafoPrincipal"></ValidationMessage>
+				</div>
+			</div>
+			<div class="form-group py-2">
+				<button class="btn btn-prmary">Guardar</button>
+			</div>
+		</EditForm>
+	}
+</div>
+
+@code {
+	private bool isLoading { get; set; } = false;
+	private InicioDto InicioDto = new();
+	private InicioDto InicioDtoGrabado = new();
+	private string Titulo = String.Empty;
+	private IBrowserFile selectedImage { get; set; }
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		//Only load the categories the first time the page is rendered
+		if (firstRender)
+		{
+			await ObtenerInicio();
+		}
+	}
+
+	private async Task ObtenerInicio()
+	{
+		isLoading = true;
+		StateHasChanged();
+		var result = await _inicioRepository.ObtenerInicio();
+		if (result != null && result.Exito)
+		{
+			InicioDto = result.Data;
+			InicioDtoGrabado.ImagenDeInicio = InicioDto.ImagenDeInicio;
+			InicioDtoGrabado.Titulo = InicioDto.Titulo;
+			InicioDtoGrabado.ParrafoPrincipal = InicioDto.ParrafoPrincipal;
+		}
+		isLoading = false;
+		StateHasChanged();
+	}
+
+	private async Task CambiarInicio()
+	{
+
+		if (InicioDtoGrabado.ImagenDeInicio != InicioDto.ImagenDeInicio)
+		{
+			InicioDto.ImagenDeInicio = await _fileUpload.UploadFile(selectedImage);
+		}
+
+		if (InicioDtoGrabado.ImagenDeInicio == InicioDto.ImagenDeInicio
+		    && InicioDtoGrabado.Titulo == InicioDto.Titulo 
+		    && InicioDtoGrabado.ParrafoPrincipal == InicioDto.ParrafoPrincipal)
+		{
+			await _jsRuntime.ToastrSuccess("Ya Esta Grabado.");
+			return;
+		}
+
+		var resultado = await _inicioRepository.CrearEditarInicio(InicioDto);
+		if (resultado != null && resultado.Exito)
+		{
+			await _jsRuntime.ToastrSuccess("Inicio Grabado Exitosamente.");
+		}
+		else
+		{
+			await _jsRuntime.ToastrError("Inicio No Se Pudo Grabar.");
+		}
+		await ObtenerInicio();
+		_navigationManager.NavigateTo("/ManejarInicio", true);
+	}
+
+	private async Task HandleImageUpload(InputFileChangeEventArgs e)
+	{
+		var rawFile = e.File;
+
+
+		if (rawFile != null)
+		{
+			System.IO.FileInfo fileInfo = new System.IO.FileInfo(rawFile.Name);
+			if (fileInfo.Extension.ToLower() == ".jpg" ||
+			fileInfo.Extension.ToLower() == ".png" ||
+			fileInfo.Extension.ToLower() == ".jpeg")
+			{
+				//Product.ImageUrl = await _fileUpload.UploadFile(rawFile);
+				selectedImage = await rawFile.RequestImageFileAsync(rawFile.ContentType, 512, 512);
+
+				var stream = new MemoryStream();
+				await selectedImage.OpenReadStream().CopyToAsync(stream);
+
+				InicioDto.ImagenDeInicio = $"data:{rawFile.ContentType};base64,{Convert.ToBase64String(stream.ToArray())}";
+			}
+			else
+			{
+				await _jsRuntime.ToastrError("Porfavor escojer una foto de tipo .jpg/.jpeg/.png file only");
+				StateHasChanged();
+			}
+		}
+	}
+
+	private List<ToolbarItemModel> Tools = new List<ToolbarItemModel>()
+	{
+		new ToolbarItemModel() { Command = ToolbarCommand.Bold },
+		new ToolbarItemModel() { Command = ToolbarCommand.Italic },
+		new ToolbarItemModel() { Command = ToolbarCommand.Underline },
+		new ToolbarItemModel() { Command = ToolbarCommand.StrikeThrough },
+		new ToolbarItemModel() { Command = ToolbarCommand.FontName },
+		new ToolbarItemModel() { Command = ToolbarCommand.FontSize },
+		new ToolbarItemModel() { Command = ToolbarCommand.Separator },
+		new ToolbarItemModel() { Command = ToolbarCommand.FontColor },
+		new ToolbarItemModel() { Command = ToolbarCommand.Separator },
+		new ToolbarItemModel() { Command = ToolbarCommand.Formats },
+		new ToolbarItemModel() { Command = ToolbarCommand.Alignments },
+		new ToolbarItemModel() { Command = ToolbarCommand.Separator },
+		new ToolbarItemModel() { Command = ToolbarCommand.Undo },
+		new ToolbarItemModel() { Command = ToolbarCommand.Redo }
+	};
+
+}

@@ -1,10 +1,46 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@inject IInicioRepository _inicioRepository
+@inject IJSRuntime _jsRuntime
 
-<h1>Bienvenidos!</h1>
+<PageTitle>Inicio</PageTitle>
+@if (isLoading)
+{
+	//Loading Symbol
+	<div class="text-center pt-4">
+		<img src="/images/loading.gif">
+	</div>
+}
+else
+{
+	@((MarkupString)Inicio.Titulo)
+	@((MarkupString)Inicio.ParrafoPrincipal)
+	<a href="/publico/grupos">Directorio de Juntas en El Paso y Sur de Nuevo Mexico</a>
+}
 
-Bienvenidos a la pagina de AlAnon Integrupal El Paso Tx <br/>
+@code {
+	private InicioDto Inicio = new();
+	private bool isLoading { get; set; } = true;
 
-<a href="/publico/grupos">Directorio de Juntas en El Paso</a> <br/>
-<a href="/grupos">Administrator de Juntas</a> <br/>
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		//Only load the categories the first time the page is rendered
+		if (firstRender)
+		{
+			await ObtenerInicio();
+		}
+	}
+
+		private async Task ObtenerInicio()
+	{
+		isLoading = true;
+		StateHasChanged();
+		var result = await _inicioRepository.ObtenerInicio();
+		if (result != null && result.Exito)
+		{
+			Inicio = result.Data;
+		}
+		isLoading = false;
+		StateHasChanged();
+	}
+}

@@ -1,5 +1,4 @@
-﻿
-using AlAnon.Models.Dtos;
+﻿using AlAnon.Models.Dtos;
 
 namespace AlAnon.Repository.IRepository
 {

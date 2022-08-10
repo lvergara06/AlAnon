@@ -1,9 +1,9 @@
-﻿@page "/Grupos"
+﻿@page "/grupos"
 
 @inject IGrupoRepository _grupoRepository
 @inject IInfoRepository _infoRepository
 @inject IJSRuntime _jsRuntime
-@*@attribute [Authorize(Roles = "Admins")]*@
+@attribute [Authorize(Roles = "Admin")]
 
 <_DeleteConfirmation isParentComponentProcessing="isLoading" DeleteFunc="DeleteConfirmed"></_DeleteConfirmation>
 <div class="row mt-4">
@@ -120,6 +120,7 @@
 	private string numeroGrabado = string.Empty;
 	private bool EditarNumero = false;
 	//Done after a first render
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		//Only load the categories the first time the page is rendered
