@@ -26,22 +26,37 @@ namespace AlAnon.Repository
 
             if (inicioDeDb != null)
             {
-                // Update to invalid
-                inicioDeDb.DiaCerrada = DateTime.Now;
-                inicioDeDb.EsValida = false;
+                // Update
+                inicioDeDb.EsValida = true;
+                inicioDeDb.DiaInsertada = DateTime.Now;
+                inicioDeDb.Titulo = nuevoInicioDto.Titulo;
+                inicioDeDb.ParrafoPrincipal = nuevoInicioDto.ParrafoPrincipal;
+                inicioDeDb.ImagenDeInicio = nuevoInicioDto.ImagenDeInicio;
+                inicioDeDb.Posicion = nuevoInicioDto.Posicion;
+                inicioDeDb.ImageFit = nuevoInicioDto.ImageFit;
+                inicioDeDb.ImageHeight = nuevoInicioDto.ImageHeight;
+                inicioDeDb.ImageWidth = nuevoInicioDto.ImageWidth;
+                inicioDeDb.ImagePosition = nuevoInicioDto.ImagePosition;
                 _db.Inicio.Update(inicioDeDb);
+                respuesta.Data = _mapper.Map<Inicio, InicioDto>(inicioDeDb);
             }
+            else
+            {
+                // Create
+                nuevoInicio.EsValida = true;
+                nuevoInicio.DiaInsertada = DateTime.Now;
+                nuevoInicio.Titulo = nuevoInicioDto.Titulo;
+                nuevoInicio.ParrafoPrincipal = nuevoInicioDto.ParrafoPrincipal;
+                nuevoInicio.ImagenDeInicio = nuevoInicioDto.ImagenDeInicio;
+                nuevoInicio.Posicion = nuevoInicioDto.Posicion;
+                nuevoInicio.ImageFit = nuevoInicioDto.ImageFit;
+                nuevoInicio.ImageHeight = nuevoInicioDto.ImageHeight;
+                nuevoInicio.ImageWidth = nuevoInicioDto.ImageWidth;
+                nuevoInicio.ImagePosition = nuevoInicioDto.ImagePosition;
 
-            // Create
-            nuevoInicio.EsValida = true;
-            nuevoInicio.DiaInsertada = DateTime.Now;
-            nuevoInicio.Titulo = nuevoInicioDto.Titulo;
-            nuevoInicio.ParrafoPrincipal = nuevoInicioDto.ParrafoPrincipal;
-            nuevoInicio.ImagenDeInicio = nuevoInicioDto.ImagenDeInicio;
-
-            _db.Inicio.Add(nuevoInicio);
-            respuesta.Data = _mapper.Map<Inicio, InicioDto>(nuevoInicio);
-
+                _db.Inicio.Add(nuevoInicio);
+                respuesta.Data = _mapper.Map<Inicio, InicioDto>(nuevoInicio);
+            }
             await _db.SaveChangesAsync();
 
             return respuesta;

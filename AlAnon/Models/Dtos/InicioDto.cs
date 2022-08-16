@@ -1,4 +1,6 @@
-﻿namespace AlAnon.Models.Dtos
+﻿using MudBlazor;
+
+namespace AlAnon.Models.Dtos
 {
 	public class InicioDto
 	{
@@ -10,5 +12,9 @@
 		public DateTime DiaInsertada { get; set; }
 		public DateTime DiaCerrada { get; set; }
 		public string UsuarioId { get; set; } = string.Empty;
-	}
+        public int ImageHeight { get; set; } = 300;
+        public int ImageWidth { get; set; } = 300;
+        public ObjectPosition ImagePosition { get; set; } = ObjectPosition.Center;
+        public ObjectFit ImageFit { get; set; } = ObjectFit.Cover;
+    }
 }
