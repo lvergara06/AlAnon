@@ -3,14 +3,14 @@
 @inject SignInManager<ApplicationUser> _signInManager
 <AuthorizeView>
 	<Authorized>
-		<a href="Identity/Account/Manage">Hello, @context.User.Claims?.FirstOrDefault(x => x.Type.Equals("given_name", StringComparison.OrdinalIgnoreCase))?.Value</a>
+		<a class="nav-link btn btn-link" href="Identity/Account/Manage">Hello, @context.User.Claims?.FirstOrDefault(x => x.Type.Equals("given_name", StringComparison.OrdinalIgnoreCase))?.Value</a>
 		<form method="post" action="Identity/Account/LogOut">
-			<button type="submit" class="nav-link btn btn-link">Log out</button>
+			<button type="submit" class="nav-link btn btn-link">Terminar Sesion</button>
 		</form>
 	</Authorized>
 	<NotAuthorized>
-		<a href="Identity/Account/Register">Register</a>
-		<a href="Identity/Account/Login">Log in</a>
+		<a class="nav-link btn btn-link" href="Identity/Account/Register">Registrar</a>
+		<a class="nav-link btn btn-link" href="Identity/Account/Login">Iniciar Sesion</a>
 	</NotAuthorized>
 </AuthorizeView>
 

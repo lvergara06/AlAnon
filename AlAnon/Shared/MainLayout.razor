@@ -10,12 +10,14 @@
 	<main>
 		@if (!String.IsNullOrEmpty(InicioDto.ImagenDeInicio))
 		{
-			<div style="background-image: url(@InicioDto.ImagenDeInicio);
-			min-height: 160px;
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: cover;
-			position: relative;" class="top-row row-lg-4 row-md-6 auth">
+@*			<div style="background-image: url(@InicioDto.ImagenDeInicio);
+			height: 140px;
+			width: 100%;
+			background-size: auto;
+			background-repeat: no-repeat;">
+			</div>*@
+			<MudImage ObjectFit="@ObjectFit.Fill" Height="140" Style="width: 100%;" Src="@InicioDto.ImagenDeInicio" Alt="Mony the dog" Elevation="25" Class="rounde d-lg"/>
+			<div class="top-row row-lg-4 row-md-6 auth">
 				<LoginDisplay />
 			</div>
 		}

@@ -7,5 +7,6 @@ namespace AlAnon.Services.IServices
     {
         public Task<string> UploadFile(IBrowserFile file);
         public Task DeleteFile(string imageUrl);
+        public Task<string> UploadMainPic(IBrowserFile file);
     }
 }

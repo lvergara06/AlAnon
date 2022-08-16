@@ -4,6 +4,7 @@
 	{
 		public int id { get; set; }
 		public string ImagenDeInicio { get; set; } = string.Empty;
+		public double Posicion { get; set; } = 50.0;
 		public string Titulo { get; set; } = string.Empty;
 		public string ParrafoPrincipal { get; set; } = string.Empty;
 		public bool EsValida { get; set; }
