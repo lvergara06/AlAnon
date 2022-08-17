@@ -16,7 +16,10 @@
 			background-size: auto;
 			background-repeat: no-repeat;">
 			</div>*@
-			<MudImage ObjectFit="@InicioDto.ImageFit" ObjectPosition="@InicioDto.ImagePosition" Height="@InicioDto.ImageHeight" Style="width:100%;" Src="@InicioDto.ImagenDeInicio" />
+			<div style="position:relative; width:100%; height:140px;">
+				<MudImage ObjectFit="@InicioDto.ImageFitLogo" ObjectPosition="@InicioDto.ImagePositionLogo" Height="@InicioDto.ImageHeightLogo" Width="@InicioDto.ImageWidthLogo" style="position:absolute;" Src="@InicioDto.ImagenDeInicioLogo" />
+				<MudImage ObjectFit="@InicioDto.ImageFit" ObjectPosition="@InicioDto.ImagePosition" Height="@InicioDto.ImageHeight" Style="width:100%;" Src="@InicioDto.ImagenDeInicio" />
+			</div>
 			<div class="top-row row-lg-4 row-md-6 auth">
 				<LoginDisplay />
 			</div>

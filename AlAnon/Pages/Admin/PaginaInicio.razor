@@ -38,16 +38,21 @@
             </div>
             <DataAnnotationsValidator />
             <label>Editar Imagen Principal</label>
-            <div class="form-group pa-4 col-md-6">
+            <div class="form-group  pa-4 col-md-6">
                 <InputFile OnChange="HandleImageUpload"></InputFile>
+            </div>
+
+            <label>Editar Logo Principal</label>
+            <div class="form-group pa-4 col-md-6">
+                <InputFile OnChange="HandleImageUploadLogo"></InputFile>
             </div>
 
             <MudGrid Justify="Justify.SpaceEvenly">
                 <MudItem Class="d-flex justify-center align-center pa-2 md-12" xs="12" Style="width:100%; height:140px;">
                     <MudImage ObjectFit="@InicioDto.ImageFit" ObjectPosition="@InicioDto.ImagePosition" Height="@(SetHeight ? @InicioDto.ImageHeight : null)" Style="width:100%;" Src="@InicioDto.ImagenDeInicio" />
-                    <MudImage style="position:absolute;" Src="https://mangoblob20220406.blob.core.windows.net/mango/AlAnonLogo.png" />
+                    <MudImage ObjectFit="@InicioDto.ImageFitLogo" ObjectPosition="@InicioDto.ImagePositionLogo" Height="@(SetHeightLogo ? @InicioDto.ImageHeightLogo : null)" Width="@(SetWidthLogo ? @InicioDto.ImageWidthLogo : null)" style="position:absolute;" Src="@InicioDto.ImagenDeInicioLogo" />
                 </MudItem>
-                <MudItem xs="6" md="6">
+                <MudItem xs="12" md="6">
                     <MudPaper Class="col-md-12 py-8" Elevation="0">
                         <MudText Typo="Typo.h6">Opciones de Foto Principal</MudText>
                         <MudSelect Label="Stylo" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense" @bind-Value="@InicioDto.ImageFit" Class="mt-4">
@@ -58,6 +63,7 @@
                             <MudSelectItem T="ObjectFit" Value="ObjectFit.ScaleDown">ScaleDown</MudSelectItem>
                         </MudSelect>
                         <MudSelect Label="Posicion" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense" @bind-Value="@InicioDto.ImagePosition" Class="mt-4">
+                            <MudSelectItem T="ObjectPosition" Value="ObjectPosition.Center">Center</MudSelectItem>
                             <MudSelectItem T="ObjectPosition" Value="ObjectPosition.Top">Top</MudSelectItem>
                             <MudSelectItem T="ObjectPosition" Value="ObjectPosition.Bottom">Bottom</MudSelectItem>
                             <MudSelectItem T="ObjectPosition" Value="ObjectPosition.Left">Left</MudSelectItem>
@@ -74,17 +80,18 @@
                             <MudSlider @bind-Value="@InicioDto.ImageHeight" Disabled="@(!SetHeight)" Max="140" Color="Color.Secondary" />
                         </MudPaper>
                     </MudItem>
-                    <MudItem xs="6" md="6">
+                    <MudItem xs="12" md="6">
                         <MudPaper Class="col-md-12" Elevation="0">
                             <MudText Typo="Typo.h6">Opciones de Logo Principal</MudText>
-                            <MudSelect Label="Image Fit" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense" @bind-Value="@InicioDto.ImageFit" Class="mt-4">
+                            <MudSelect Label="Image Fit" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense" @bind-Value="@InicioDto.ImageFitLogo" Class="mt-4">
                                 <MudSelectItem T="ObjectFit" Value="ObjectFit.None">None</MudSelectItem>
                                 <MudSelectItem T="ObjectFit" Value="ObjectFit.Cover">Cover</MudSelectItem>
                                 <MudSelectItem T="ObjectFit" Value="ObjectFit.Contain">Contain</MudSelectItem>
                                 <MudSelectItem T="ObjectFit" Value="ObjectFit.Fill">Fill</MudSelectItem>
                                 <MudSelectItem T="ObjectFit" Value="ObjectFit.ScaleDown">ScaleDown</MudSelectItem>
                             </MudSelect>
-                            <MudSelect Label="Posicion" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense" @bind-Value="@InicioDto.ImagePosition" Class="mt-4">
+                            <MudSelect Label="Posicion" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense" @bind-Value="@InicioDto.ImagePositionLogo" Class="mt-4">
+                                <MudSelectItem T="ObjectPosition" Value="ObjectPosition.Center">Center</MudSelectItem>
                                 <MudSelectItem T="ObjectPosition" Value="ObjectPosition.Top">Top</MudSelectItem>
                                 <MudSelectItem T="ObjectPosition" Value="ObjectPosition.Bottom">Bottom</MudSelectItem>
                                 <MudSelectItem T="ObjectPosition" Value="ObjectPosition.Left">Left</MudSelectItem>
@@ -95,18 +102,19 @@
                                 <MudSelectItem T="ObjectPosition" Value="ObjectPosition.RightBottom">RightBottom</MudSelectItem>
                             </MudSelect>
                             <div class="d-flex justify-space-between align-center">
-                                <MudText>Width: @(SetWidth ? $"{@InicioDto.ImageWidth}px" : "Auto")</MudText>
+                                <MudText>Width: @(SetWidthLogo ? $"{@InicioDto.ImageWidthLogo}px" : "Auto")</MudText>
                                 <MudSwitch @bind-Checked="@SetWidth" Color="Color.Primary" Class="mr-0" />
                             </div>
-                            <MudSlider @bind-Value="@InicioDto.ImageWidth" Disabled="@(!SetWidth)" Max="1200" Color="Color.Primary" />
+                            <MudSlider @bind-Value="@InicioDto.ImageWidthLogo" Disabled="@(!SetWidthLogo)" Max="2000" Color="Color.Primary" />
                             <div class="d-flex justify-space-between align-center">
-                                <MudText>Height: @(SetHeight ? $"{@InicioDto.ImageHeight}px" : "Auto")</MudText>
-                                <MudSwitch @bind-Checked="@SetHeight" Color="Color.Secondary" Class="mr-0" />
+                                <MudText>Height: @(SetHeightLogo ? $"{@InicioDto.ImageHeightLogo}px" : "Auto")</MudText>
+                                <MudSwitch @bind-Checked="@SetHeightLogo" Color="Color.Secondary" Class="mr-0" />
                             </div>
-                            <MudSlider @bind-Value="@InicioDto.ImageHeight" Disabled="@(!SetHeight)" Max="140" Color="Color.Secondary" />
+                            <MudSlider @bind-Value="@InicioDto.ImageHeightLogo" Disabled="@(!SetHeightLogo)" Max="140" Color="Color.Secondary" />
                         </MudPaper>
                     </MudItem>
                 </MudGrid>
+                <MudButton Variant="Variant.Filled" OnClick="(() => CambiarInicio())" StartIcon="@Icons.Material.Filled.Save" IconColor="Color.Secondary" Size="Size.Large">Grabar</MudButton>
             </EditForm>
     }
 </div>
@@ -117,8 +125,11 @@
     private InicioDto InicioDtoGrabado = new();
     private string Titulo = String.Empty;
     private IBrowserFile selectedImage { get; set; }
+    private IBrowserFile selectedImageLogo { get; set; }
     public bool SetHeight { get; set; } = true;
     public bool SetWidth { get; set; } = true;
+    public bool SetHeightLogo { get; set; } = true;
+    public bool SetWidthLogo { get; set; } = true;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -150,6 +161,11 @@
         if (InicioDtoGrabado.ImagenDeInicio != InicioDto.ImagenDeInicio)
         {
             InicioDto.ImagenDeInicio = await _fileUpload.UploadFile(selectedImage);
+        }
+
+        if (InicioDtoGrabado.ImagenDeInicioLogo != InicioDto.ImagenDeInicioLogo)
+        {
+            InicioDto.ImagenDeInicioLogo = await _fileUpload.UploadFile(selectedImageLogo);
         }
 
         var resultado = await _inicioRepository.CrearEditarInicio(InicioDto);
@@ -199,6 +215,39 @@
         }
     }
 
+    private async Task HandleImageUploadLogo(InputFileChangeEventArgs e)
+    {
+        var rawFile = e.File;
+
+
+        if (rawFile != null)
+        {
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(rawFile.Name);
+            if (fileInfo.Extension.ToLower() == ".jpg" ||
+            fileInfo.Extension.ToLower() == ".png" ||
+            fileInfo.Extension.ToLower() == ".jpeg")
+            {
+                //Product.ImageUrl = await _fileUpload.UploadFile(rawFile);
+                selectedImageLogo = await rawFile.RequestImageFileAsync(rawFile.ContentType, 1024, 140);
+
+                //var stream = new MemoryStream();
+                //await selectedImage.OpenReadStream().CopyToAsync(stream);
+
+                var buf = new byte[selectedImage.Size]; // allocate a buffer to fill with the file's data
+                using (var stream = selectedImage.OpenReadStream())
+                {
+                    await stream.ReadAsync(buf); // copy the stream to the buffer
+                }
+
+                InicioDto.ImagenDeInicioLogo = $"data:{rawFile.ContentType};base64,{Convert.ToBase64String(buf.ToArray())}";
+            }
+            else
+            {
+                await _jsRuntime.ToastrError("Porfavor escojer una foto de tipo .jpg/.jpeg/.png file only");
+                StateHasChanged();
+            }
+        }
+    }
     private List<ToolbarItemModel> Tools = new List<ToolbarItemModel>()
     {
         new ToolbarItemModel() { Command = ToolbarCommand.Bold },
@@ -217,8 +266,4 @@
         new ToolbarItemModel() { Command = ToolbarCommand.Redo }
     };
 
-    void SetImagePosition(ObjectPosition value)
-    {
-        InicioDto.ImagePosition = value;
-    }
 }

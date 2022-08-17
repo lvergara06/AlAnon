@@ -5,6 +5,7 @@ namespace AlAnon.Models.Dtos
 	public class InicioDto
 	{
 		public string ImagenDeInicio { get; set; } = string.Empty;
+        public string ImagenDeInicioLogo { get; set; } = string.Empty;
         public double Posicion { get; set; } = 50.0;
         public string Titulo { get; set; } = string.Empty;
 		public string ParrafoPrincipal { get; set; } = string.Empty;
@@ -16,5 +17,9 @@ namespace AlAnon.Models.Dtos
         public int ImageWidth { get; set; } = 300;
         public ObjectPosition ImagePosition { get; set; } = ObjectPosition.Center;
         public ObjectFit ImageFit { get; set; } = ObjectFit.Cover;
+        public int ImageHeightLogo { get; set; } = 300;
+        public int ImageWidthLogo { get; set; } = 300;
+        public ObjectPosition ImagePositionLogo { get; set; } = ObjectPosition.Center;
+        public ObjectFit ImageFitLogo { get; set; } = ObjectFit.Cover;
     }
 }

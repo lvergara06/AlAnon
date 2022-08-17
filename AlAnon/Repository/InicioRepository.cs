@@ -37,6 +37,11 @@ namespace AlAnon.Repository
                 inicioDeDb.ImageHeight = nuevoInicioDto.ImageHeight;
                 inicioDeDb.ImageWidth = nuevoInicioDto.ImageWidth;
                 inicioDeDb.ImagePosition = nuevoInicioDto.ImagePosition;
+                inicioDeDb.ImagenDeInicioLogo = nuevoInicioDto.ImagenDeInicioLogo;
+                inicioDeDb.ImageFitLogo = nuevoInicioDto.ImageFitLogo;
+                inicioDeDb.ImageHeightLogo = nuevoInicioDto.ImageHeightLogo;
+                inicioDeDb.ImageWidthLogo = nuevoInicioDto.ImageWidthLogo;
+                inicioDeDb.ImagePositionLogo = nuevoInicioDto.ImagePositionLogo;
                 _db.Inicio.Update(inicioDeDb);
                 respuesta.Data = _mapper.Map<Inicio, InicioDto>(inicioDeDb);
             }
@@ -53,6 +58,11 @@ namespace AlAnon.Repository
                 nuevoInicio.ImageHeight = nuevoInicioDto.ImageHeight;
                 nuevoInicio.ImageWidth = nuevoInicioDto.ImageWidth;
                 nuevoInicio.ImagePosition = nuevoInicioDto.ImagePosition;
+                nuevoInicio.ImagenDeInicioLogo = nuevoInicioDto.ImagenDeInicioLogo;
+                nuevoInicio.ImageFitLogo = nuevoInicioDto.ImageFitLogo;
+                nuevoInicio.ImageHeightLogo = nuevoInicioDto.ImageHeightLogo;
+                nuevoInicio.ImageWidthLogo = nuevoInicioDto.ImageWidthLogo;
+                nuevoInicio.ImagePositionLogo = nuevoInicioDto.ImagePositionLogo;
 
                 _db.Inicio.Add(nuevoInicio);
                 respuesta.Data = _mapper.Map<Inicio, InicioDto>(nuevoInicio);
