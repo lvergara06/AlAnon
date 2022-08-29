@@ -32,10 +32,10 @@ namespace AlAnon.Services
             FileInfo fileInfo = new(file.Name);
             var fileName = Guid.NewGuid().ToString() + fileInfo.Extension;
 
-            selectedImage = await file.RequestImageFileAsync(file.ContentType, 1024, 1024); 
+  //          selectedImage = await file.RequestImageFileAsync(file.ContentType, 4000, 4000); 
 
             var stream = new MemoryStream();
-            await selectedImage.OpenReadStream().CopyToAsync(stream);
+     //       await selectedImage.OpenReadStream().CopyToAsync(stream);
 
             Uri blobUri = new Uri("https://" +
                       _configuration.GetSection("AzureStorageConfig").GetValue<string>("AccountName") +
@@ -61,7 +61,7 @@ namespace AlAnon.Services
             //await blobClient.UploadAsync(stream, true);
 
             // With Options
-            await blobClient.UploadAsync(stream,
+            await blobClient.UploadAsync(file.OpenReadStream(),
             new BlobUploadOptions
             {
                 // 5.1. define HTTP Header Content Type 
@@ -73,7 +73,7 @@ namespace AlAnon.Services
                 // 5.2. THe Transfer behavior with the transfer size
                 TransferOptions = new StorageTransferOptions
                 {
-                    InitialTransferSize = 1024 * 1024
+                    InitialTransferSize = 1500 * 140
                 }
             });
 

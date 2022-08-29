@@ -1,4 +1,4 @@
-﻿@page "/publico/grupos"
+﻿ @page "/publico/grupos"
 
 @inject IGrupoRepository _grupoRepository
 @inject IInfoRepository _infoRepository
@@ -18,7 +18,10 @@ else
 	{		@*Filter by area*@
 		@*Select an area and bind it to AreaEscojida then call AreaCambio to handle AreasEscojidas*@
 		<div class="form-group col-8">
-			Filtro de Area:
+			<div class="row">
+
+				<div class="col-3">
+				Filtro de Area:
 			<select class="custom-select" @onchange="AreaCambio" title="Filtro de Area">
 				<option value="Todas" selected>Todas</option>
 				@foreach (var area in SD.ListaDeAreas.Where(u => u != "Zoom"))
@@ -26,6 +29,18 @@ else
 					<option value="@area"> @area</option>
 				}
 			</select>
+				</div>
+@*				<div class="col-3">
+					Filtro de Dia:
+					<select class="custom-select" @onchange="DiaCambio" title="Filtro de Dia">
+						<option value="Todas" selected>Todas</option>
+						@foreach (var area in SD.ListaDeAreas.Where(u => u != "Zoom"))
+						{
+							<option value="@area"> @area</option>
+						}
+					</select>
+				</div>*@
+			</div>
 		</div>
 		if(ListaDeGrupos.Where(u => AreasEscojidas.Contains(u.Area)).Count() == 0)
 		{

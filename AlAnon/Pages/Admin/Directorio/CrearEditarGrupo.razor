@@ -73,8 +73,20 @@
 			</div>
 		    <div class="form-group">
 				<label>Dias</label>
-				<InputText @bind-Value="Grupo.Dias" class="form-control"></InputText>
-				<ValidationMessage For="()=>Grupo.Dias"></ValidationMessage>
+	@*			<InputText @bind-Value="Grupo.Dias" class="form-control"></InputText>
+				<ValidationMessage For="()=>Grupo.Dias"></ValidationMessage>*@
+				@foreach (var dia in SD.ListaDeDias)
+				{
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="checkbox" value="@dia" @onchange="DiaCambio"
+						  checked="@(ListaDiasEscojido.Contains(dia))">
+						<label class="form-check-label">@dia </label>
+					</div>
+				}
+@*				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+					<label class="form-check-label" for="inlineCheckbox1">Lunes</label>
+				</div>*@
 			</div>
 		    <div class="form-group">
 				<label>Horas</label>
@@ -122,6 +134,7 @@
 	public int Id { get; set; }
 
 	private string Title { get; set; } = "Crear";
+	private List<string> ListaDiasEscojido { get; set; } = new();
 	private bool isLoading { get; set; } = true;
 	private GrupoDto Grupo { get; set; } = new();
 
@@ -146,14 +159,27 @@
 			if(resultado != null && resultado.Exito)
 			{
 				Grupo = resultado.Data;
+				string[] dias = Grupo.Dias.Split(' ');
+				foreach(var dia in dias)
+				{
+					ListaDiasEscojido.Add(dia);
+				}
 			}
 		}
-        isLoading=false;
-        StateHasChanged();
-    }
+		isLoading=false;
+		StateHasChanged();
+	}
 
 	private async Task CrearEditar()
 	{
+		string DiasEscojidos = string.Empty;
+		foreach(var dias in ListaDiasEscojido)
+		{
+			DiasEscojidos += dias;
+			DiasEscojidos += ' ';
+		}
+
+		Grupo.Dias = DiasEscojidos;
 		if (Grupo.Id == 0)
 		{
 			//create
@@ -169,4 +195,21 @@
 		_navigationManager.NavigateTo("grupos");
 	}
 
+	private async Task DiaCambio(Microsoft.AspNetCore.Components.ChangeEventArgs e)
+	{
+		var dia = e.Value.ToString();
+
+		isLoading = true;
+		StateHasChanged();
+		if(ListaDiasEscojido.Contains(dia))
+		{
+			ListaDiasEscojido.Remove(dia);
+		}
+		else
+		{
+			ListaDiasEscojido.Add(dia);
+		}
+		isLoading = false;
+		StateHasChanged();
+	}
 }
