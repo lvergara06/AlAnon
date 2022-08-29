@@ -71,14 +71,14 @@
 				<InputText @bind-Value="Grupo.Direccion" class="form-control"></InputText>
 				<ValidationMessage For="()=>Grupo.Direccion"></ValidationMessage>
 			</div>
-		    <div class="form-group">
-				<label>Dias</label>
+		    <div class="form-group pt-4">
+				<label class="me-2">Dias:</label>
 	@*			<InputText @bind-Value="Grupo.Dias" class="form-control"></InputText>
 				<ValidationMessage For="()=>Grupo.Dias"></ValidationMessage>*@
 				@foreach (var dia in SD.ListaDeDias)
 				{
-					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="checkbox" value="@dia" @onchange="DiaCambio"
+					<div class="form-check form-check-inline mx-2">
+						<input class="form-check-input" type="checkbox" value="@dia" @onchange="(()=>DiaCambio(dia))"
 						  checked="@(ListaDiasEscojido.Contains(dia))">
 						<label class="form-check-label">@dia </label>
 					</div>
@@ -195,9 +195,8 @@
 		_navigationManager.NavigateTo("grupos");
 	}
 
-	private async Task DiaCambio(Microsoft.AspNetCore.Components.ChangeEventArgs e)
+	private async Task DiaCambio(string dia)
 	{
-		var dia = e.Value.ToString();
 
 		isLoading = true;
 		StateHasChanged();
