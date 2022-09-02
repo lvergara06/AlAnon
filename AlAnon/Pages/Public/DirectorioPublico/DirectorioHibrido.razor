@@ -15,11 +15,11 @@ else
 {
 	<h3 class="text-center font-weight-bold">@Informacion.NumeroIntegrupal</h3>
 	if (ListaDeGrupos.Count() > 0)
-	{		@*Filter by area*@
+	{	
+		@*Filters by area and by day. Drop down selects and handlers.*@
 		@*Select an area and bind it to AreaEscojida then call AreaCambio to handle AreasEscojidas*@
 		<div class="form-group col-8">
 			<div class="row">
-
 				<div class="col-xl-3 col-sm-6 col-md-6">
 				Filtro de Area:
 			<select class="custom-select" @onchange="AreaCambio" title="Filtro de Area">
@@ -29,7 +29,7 @@ else
 					<option value="@area"> @area</option>
 				}
 			</select>
-			@*Filter by day*@
+		@*Select an area and bind it to AreaEscojida then call AreaCambio to handle AreasEscojidas*@
 				</div>
 				<div class="col-xl-3 col-sm-6 col-md-6">
 					Filtro de Dia:
@@ -43,29 +43,33 @@ else
 				</div>
 			</div>
 		</div>
-		if(ListaDeGrupos.Where(u => AreasEscojidas.Contains(u.Area)).Count() == 0)
+
+		@*Check if filters are applied*@
+		if(ListaDeGrupos.Where(u => u.Area.Contains(FiltroArea == "Todas" ? u.Area : FiltroArea)).Count() == 0)
 		{
 			<p>No hay juntas en esta area.</p>
 		}
-		else if (DiaEscojido != "Todas" && ListaDeGrupos.Where(u => u.Dias.Contains(DiaEscojido)).Count() == 0)
+		
+		if (ListaDeGrupos.Where(u => u.Area.Contains(FiltroArea == "Todas" ? u.Area : FiltroArea) && u.Dias.Contains(FiltroDia == "Todas" ? u.Dias : FiltroDia)).Count() == 0)
 		{
 			<p>No hay juntas en este dia.</p>
 		}
-		@foreach (var tipo in ListaDeGrupos.Where(u => AreasEscojidas.Contains(u.Area)).Select(u => u.TipoDeJunta).Distinct())
+
+		@foreach (var tipo in ListaDeGrupos.Where(u => u.Area.Contains(FiltroArea == "Todas" ? u.Area : FiltroArea) && u.Dias.Contains(FiltroDia == "Todas" ? u.Dias : FiltroDia)).Select(u => u.TipoDeJunta).Distinct())
 		{
 			@*Only print if any meetings exist with tipo*@
-			@if (ListaDeGrupos.Where(u => u.TipoDeJunta == tipo && AreasEscojidas.Contains(u.Area)).Count() > 0)
+			@if (ListaDeGrupos.Where(u => u.TipoDeJunta == tipo && u.Area.Contains(FiltroArea == "Todas" ? u.Area : FiltroArea) && u.Dias.Contains(FiltroDia == "Todas" ? u.Dias : FiltroDia)).Count() > 0)
 			{
-				<h3 class="font-weight-bold text-decoration-underline">@tipo</h3>
-				@foreach (var area in AreasEscojidas)
+				<h3 class="font-weight-bold text-decoration-underline">@(tipo == "Fisica"? "Reuniones Fisicas" : "Reuniones Electronicas")</h3>
+				@foreach (var area in FiltroAreaList)
 				{
-					@*Only print if any meetings exist with area*@
-					@if (ListaDeGrupos.Where(u => u.Area == area && u.TipoDeJunta == tipo && u.Dias.Contains(DiaEscojido == "Todas" ? u.Dias: DiaEscojido)).Count() > 0)
-		{
+					@*Only print if any meetings exist with area and day filter*@
+					@if (ListaDeGrupos.Where(u => u.Area == area && u.TipoDeJunta == tipo && u.Dias.Contains(FiltroDia == "Todas" ? u.Dias : FiltroDia)).Count() > 0)
+					{
 						<p class="text-decoration-underline">@area:</p>
 						<div class="container m-0">
 							<div class="row pt-4 backgroundWhite">
-								@foreach (var grupo in ListaDeGrupos.Where(u => u.TipoDeJunta == tipo && u.Area == area))
+								@foreach (var grupo in ListaDeGrupos.Where(u => u.TipoDeJunta == tipo && u.Area == area && u.Dias.Contains(FiltroDia == "Todas" ? u.Dias : FiltroDia)))
 								{
 									<div class="col-lg-4 col-md-6 pb-4 filter">
 										<div class="card border border-info shadow-0 mb-3" style="max-width: 100%;">
@@ -129,9 +133,9 @@ else
 	private bool isLoading { get; set; } = true;
 	private InformacionDto Informacion = new();
 	private bool EditarNumero { get; set; } = false;
-	private List<string> AreasEscojidas { get; set; } = SD.ListaDeAreas;
-	private List<string> DiasEscojidas { get; set; } = SD.ListaDeDias;
-	private string DiaEscojido { get; set; } = "Todas";
+	private string FiltroDia { get; set; } = "Todas";
+	private string FiltroArea { get; set; } = "Todas";
+	private List<string> FiltroAreaList { get; set; } = SD.ListaDeAreas;
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
@@ -172,17 +176,20 @@ else
 	private async Task AreaCambio(Microsoft.AspNetCore.Components.ChangeEventArgs e)
 	{
 		string AreaEscojida = e.Value.ToString();
+		List<string> AreaEscojidaList = new();
 
 		isLoading = true;
 		StateHasChanged();
-		if (AreaEscojida != "Todas")
+		FiltroArea = AreaEscojida;
+		if(AreaEscojida == "Todas")
 		{
-			AreasEscojidas = new List<string> { AreaEscojida };
+			AreaEscojidaList = SD.ListaDeAreas;
 		}
 		else
 		{
-			AreasEscojidas = SD.ListaDeAreas;
+			AreaEscojidaList.Add(AreaEscojida);
 		}
+		FiltroAreaList = AreaEscojidaList;
 		isLoading = false;
 		StateHasChanged();
 	}
@@ -193,14 +200,7 @@ else
 
 		isLoading = true;
 		StateHasChanged();
-		if (DiaEscojida != "Todas")
-		{
-			DiaEscojido = DiaEscojida;
-		}
-		else
-		{
-			DiaEscojido = "Todas";
-		}
+		FiltroDia = DiaEscojida;
 		isLoading = false;
 		StateHasChanged();
 	}

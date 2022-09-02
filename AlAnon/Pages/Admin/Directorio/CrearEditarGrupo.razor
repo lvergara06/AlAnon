@@ -172,14 +172,6 @@
 
 	private async Task CrearEditar()
 	{
-		string DiasEscojidos = string.Empty;
-		foreach(var dias in ListaDiasEscojido)
-		{
-			DiasEscojidos += dias;
-			DiasEscojidos += ' ';
-		}
-
-		Grupo.Dias = DiasEscojidos;
 		if (Grupo.Id == 0)
 		{
 			//create
@@ -197,6 +189,7 @@
 
 	private async Task DiaCambio(string dia)
 	{
+		string DiasEscojidos = string.Empty;
 
 		isLoading = true;
 		StateHasChanged();
@@ -208,6 +201,15 @@
 		{
 			ListaDiasEscojido.Add(dia);
 		}
+
+		foreach (var dias in ListaDiasEscojido)
+		{
+			DiasEscojidos += dias;
+			DiasEscojidos += ' ';
+		}
+
+		Grupo.Dias = DiasEscojidos;
+
 		isLoading = false;
 		StateHasChanged();
 	}
