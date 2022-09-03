@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oqknZDjHhC6sg3HSQ03rae1mHYfawxXPnhfk5fWqidpaZuEzPjwrfkDFj43SZX3M6SQfUp8qOnUdE1squyOA7w==",
+  "dgSpecHash": "isRUK9Gb76ZSgBqj1YNaHKVm4e9VUHc1Hi5bJT3EvpBGhkF7YFCoWRGXS9BukF0nokXt1+rofbh2cV2Ysa4iiA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lvergararodr\\source\\repos\\AlAnon - Copy\\AlAnon\\AlAnon.csproj",
+  "projectFilePath": "C:\\Users\\lvergararodr\\source\\repos\\lvergara06\\AlAnon\\AlAnon\\AlAnon.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lvergararodr\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\lvergararodr\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

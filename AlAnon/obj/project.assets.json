@@ -11593,11 +11593,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lvergararodr\\source\\repos\\AlAnon - Copy\\AlAnon\\AlAnon.csproj",
+      "projectUniqueName": "C:\\Users\\lvergararodr\\source\\repos\\lvergara06\\AlAnon\\AlAnon\\AlAnon.csproj",
       "projectName": "AlAnon",
-      "projectPath": "C:\\Users\\lvergararodr\\source\\repos\\AlAnon - Copy\\AlAnon\\AlAnon.csproj",
+      "projectPath": "C:\\Users\\lvergararodr\\source\\repos\\lvergara06\\AlAnon\\AlAnon\\AlAnon.csproj",
       "packagesPath": "C:\\Users\\lvergararodr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lvergararodr\\source\\repos\\AlAnon - Copy\\AlAnon\\obj\\",
+      "outputPath": "C:\\Users\\lvergararodr\\source\\repos\\lvergara06\\AlAnon\\AlAnon\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lvergararodr\\AppData\\Roaming\\NuGet\\NuGet.Config",
