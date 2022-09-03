@@ -4,36 +4,36 @@ using Newtonsoft.Json;
 
 namespace AlAnonFront.Service
 {
-	public class InicioService : IInicioService
+	public class GrupoService : IGrupoService
 	{
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
         private string AlAnonBaseServerUrl;
 
-        public InicioService(HttpClient httpClient, IConfiguration configuration)
+        public GrupoService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _configuration = configuration;
             AlAnonBaseServerUrl = configuration.GetValue<string>("AlAnonBaseServerUrl");
         }
 
-        public Task<RespuestaDto<InicioDto>> Crear(InicioDto inicioDto)
+        public Task<RespuestaDto<GrupoDto>> Crear(GrupoDto GrupoDto)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<RespuestaDto<InicioDto>> Obtener()
+        public async Task<RespuestaDto<List<GrupoDto>>> Obtener()
         {
-            var response = await _httpClient.GetAsync("/api/Inicio/Obtener");
+            var response = await _httpClient.GetAsync("/api/Grupo/Obtener");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var respuesta = JsonConvert.DeserializeObject<RespuestaDto<InicioDto>>(content);
+                var respuesta = JsonConvert.DeserializeObject<RespuestaDto<List<GrupoDto>>>(content);
 
                 return respuesta;
             }
-            var respuestaError = new RespuestaDto<InicioDto>();
-            respuestaError.Error = "Error en InicioService: Could not get api/Inicio/Obtener";
+            var respuestaError = new RespuestaDto<List<GrupoDto>>();
+            respuestaError.Error = "Error en GrupoService: Could not get api/Grupo/Obtener";
             respuestaError.Exito = false;
             return respuestaError;
         }

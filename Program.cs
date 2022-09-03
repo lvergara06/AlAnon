@@ -11,6 +11,9 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetValue<string>("AlAnonBaseAPIUrl")) });
 builder.Services.AddScoped<IInicioService, InicioService>();
+builder.Services.AddScoped<IGrupoService, GrupoService>();
+builder.Services.AddScoped<IInfoService, InfoService>();
+builder.Services.AddScoped<ICalendarioService, CalendarioService>();
 //builder.Services.AddBlazoredLocalStorage();
 //builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 //builder.Services.AddAuthorizationCore();

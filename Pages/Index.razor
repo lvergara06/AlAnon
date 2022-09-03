@@ -15,7 +15,7 @@ else
 {
 	@((MarkupString)Inicio.Titulo)
 	@((MarkupString)Inicio.ParrafoPrincipal)
-	<a class="px-0 text-start nav-link btn btn-link" href="/publico/grupos">Directorio de Juntas en El Paso y Sur de Nuevo Mexico</a>
+	<a class="px-0 text-start nav-link btn btn-link" href="/publico/directorio">Directorio de Juntas en El Paso y Sur de Nuevo Mexico</a>
 }
 
 @code {
@@ -32,7 +32,7 @@ else
 	private async Task ObtenerInicio()
 	{
 		isLoading = true;
-		var result = await _inicioService.Obterner();
+		var result = await _inicioService.Obtener();
 		if (result != null && result.Exito)
 		{
 			Inicio = result.Data;

@@ -26,6 +26,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/lvergararodr/source/repos/lvergara06/AlAnonFrontEnd/Pages/Public/Calendario/Calendario.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHVibGljXENhbGVuZGFyaW9cQ2FsZW5kYXJpby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lvergararodr/source/repos/lvergara06/AlAnonFrontEnd/Pages/Public/Directorio/Directorio.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHVibGljXERpcmVjdG9yaW9cRGlyZWN0b3Jpby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/lvergararodr/source/repos/lvergara06/AlAnonFrontEnd/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
