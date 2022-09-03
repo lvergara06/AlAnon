@@ -21,6 +21,7 @@ jobs:
       if: success()
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
       with:
+      fqdn: www.eptx-al-anon.com
         html_path: ${{ env.PUBLISH_DIR }}/index.html
         base_href: BASE_URL or REPOSITORY_NAME
         
@@ -32,7 +33,7 @@ jobs:
       if: success()
       uses: crazy-max/ghaction-github-pages@v1.5.1
       with:
-        fqdn: www.eptx-al-anon.com
+      fqdn: www.eptx-al-anon.com
         target_branch: gh-pages
         build_dir: ${{ env.PUBLISH_DIR }}
       env:
