@@ -1,0 +1,57 @@
+﻿@page "/Boletin"
+
+@attribute [Authorize(Roles = "Admin")]
+
+<h4 class="card-title text-primary">Manejar Boletin</h4>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6">
+			<p>
+				@((MarkupString)Pagina1)
+			</p>
+		</div>
+		<div class="col-md-6">
+			<SfRichTextEditor @bind-Value="Pagina1">
+				<RichTextEditorToolbarSettings Items="@Tools" />
+			</SfRichTextEditor>
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6">
+			<p>
+				@((MarkupString)Pagina2)
+			</p>
+		</div>
+		<div class="col-md-6">
+			<SfRichTextEditor @bind-Value="Pagina2">
+				<RichTextEditorToolbarSettings Items="@Tools" />
+			</SfRichTextEditor>
+		</div>
+	</div>
+</div>
+@code {
+	private string Pagina1 { get; set; } = "Pagina1";
+	private string Pagina2 { get; set; } = "Pagina2";
+	private List<ToolbarItemModel>
+	Tools = new List<ToolbarItemModel>
+		()
+											{
+							new ToolbarItemModel() { Command = ToolbarCommand.Bold },
+							new ToolbarItemModel() { Command = ToolbarCommand.Italic },
+							new ToolbarItemModel() { Command = ToolbarCommand.Underline },
+							new ToolbarItemModel() { Command = ToolbarCommand.StrikeThrough },
+							new ToolbarItemModel() { Command = ToolbarCommand.FontName },
+							new ToolbarItemModel() { Command = ToolbarCommand.FontSize },
+							new ToolbarItemModel() { Command = ToolbarCommand.Separator },
+							new ToolbarItemModel() { Command = ToolbarCommand.FontColor },
+							new ToolbarItemModel() { Command = ToolbarCommand.Separator },
+							new ToolbarItemModel() { Command = ToolbarCommand.Formats },
+							new ToolbarItemModel() { Command = ToolbarCommand.Alignments },
+							new ToolbarItemModel() { Command = ToolbarCommand.Separator },
+							new ToolbarItemModel() { Command = ToolbarCommand.Undo },
+							new ToolbarItemModel() { Command = ToolbarCommand.Redo }
+	};
+}
