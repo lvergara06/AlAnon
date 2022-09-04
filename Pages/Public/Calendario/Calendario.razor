@@ -5,7 +5,7 @@
 @*@attribute [Authorize(Roles = "Admin")]*@
 
 <h3>Calendario de Eventos</h3>
-@if (isLoading)
+@if (isProcessing)
 {
 	//Loading Symbol
 	<div class="text-center pt-4">
@@ -14,7 +14,7 @@
 }
 else
 {
-	<MudSwitch Class="ps-1" T="bool" CheckedChanged="@(() => PastCurrentMode())" Color="Color.Primary">Eventos Pasados</MudSwitch>
+	<MudSwitch Class="ps-1" Checked="_isPastMode" T="bool" CheckedChanged="@(() => PastCurrentMode())" Color="Color.Primary">Eventos Pasados</MudSwitch>
 	<MudDataGrid T="CalendarioEventoDto" ReadOnly="true" Items="@CalendarioEventos"
 			 ColumnResizeMode="@ResizeMode.Column" SortMode="@SortMode.Single"
 			 Bordered="true" Dense="true" Striped="true" Outlined="true"
@@ -40,9 +40,9 @@ else
 }
 @code {
 	private IEnumerable<CalendarioEventoDto> CalendarioEventos = new List<CalendarioEventoDto>();
-	private bool isLoading { get; set; } = true;
+	private bool isProcessing  { get; set; } = true;
 	private string _searchString;
-	private bool _isNowMode = true;
+	private bool _isPastMode { get; set; } = false;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -52,8 +52,8 @@ else
 
 	private async Task ObtenerCalendarioAsync()
 	{
-		isLoading = true;
-		if (_isNowMode)
+		isProcessing = true;
+		if (!_isPastMode)
 		{
 			var result = await _calendarioService.ObtenerActuales();
 			if (result != null && result.Exito)
@@ -69,12 +69,12 @@ else
 				CalendarioEventos = result.Data;
 			}
 		}
-		isLoading = false;
+		isProcessing = false;
 	}
 
 	private async Task PastCurrentMode()
 	{
-		_isNowMode = !_isNowMode;
+		_isPastMode = !_isPastMode;
 		await ObtenerCalendarioAsync();
 	}
 
