@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "oKYwaSNoxRVhuKX042Il/p3rS/ssNQ8QND6tbwoTlUU=",
+  "Hash": "qhcYKXLvds5RWm4vt8XTyGZEtMRqPGQKHBPSUtr2qPQ=",
   "Source": "AlAnonFront",
   "BasePath": "/",
   "Mode": "Root",
@@ -6934,6 +6934,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\lvergararodr\\source\\repos\\lvergara06\\AlAnonFrontEnd\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\AlAnonFront.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\lvergararodr\\source\\repos\\lvergara06\\AlAnonFrontEnd\\wwwroot\\404.html",
+      "SourceId": "AlAnonFront",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lvergararodr\\source\\repos\\lvergara06\\AlAnonFrontEnd\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "404.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\404.html"
     },
     {
       "Identity": "C:\\Users\\lvergararodr\\source\\repos\\lvergara06\\AlAnonFrontEnd\\wwwroot\\appsettings.json",
