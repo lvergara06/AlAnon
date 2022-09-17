@@ -20,11 +20,11 @@
         <MudImage ObjectFit="@InicioDto.ImageFitLogo" ObjectPosition="@InicioDto.ImagePositionLogo" Height="@InicioDto.ImageHeightLogo" Width="@InicioDto.ImageWidthLogo" style="position:absolute;" Src="@InicioDto.ImagenDeInicioLogo" />
         <MudImage ObjectFit="@InicioDto.ImageFit" ObjectPosition="@InicioDto.ImagePosition" Height="@InicioDto.ImageHeight" Style="width:100%;" Src="@InicioDto.ImagenDeInicio" />
         </div>*@
-            <div class="container-fluid w-100 m-0 p-0">
-                <img src="@InicioDto.ImagenDeInicioLogo" class="img-fluid p-0 m-0" style="height:140px; position:absolute; object-fit:@InicioDto.ImageFitLogo; object-position:@InicioDto.ImagePositionLogo">
-                <img src="@InicioDto.ImagenDeInicio" class="img-fluid w-100 p-0 m-0" style="height:140px; object-fit:@InicioDto.ImageFit; object-position:center; object-position:@InicioDto.ImagePosition">
+            <div class="container-fluid w-100 m-0 p-0 d-print-none">
+                <img src="@InicioDto.ImagenDeInicioLogo" alt="Logo de Al-Anon para la pagina de El Paso Texas y Sur de Nuevo Mexico" class="img-fluid p-0 m-0" style="height:140px; position:absolute; object-fit:@InicioDto.ImageFitLogo; object-position:@InicioDto.ImagePositionLogo">
+                <img src="@InicioDto.ImagenDeInicio" alt="Montanas de El Paso Texas donde esta la pagina eptx-Al-Anon" class="img-fluid w-100 p-0 m-0" style="height:140px; object-fit:@InicioDto.ImageFit; object-position:center; object-position:@InicioDto.ImagePosition">
             </div>
-            <div class="top-row row-lg-4 row-md-6 auth">
+            <div class="top-row row-lg-4 row-md-6 auth d-print-none">
                 @*<LoginDisplay />*@
             </div>
         }
