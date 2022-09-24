@@ -14,4 +14,8 @@
 	  <!--<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.8" />-->
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Public\Boletin\" />
+  </ItemGroup>
+
 </Project>

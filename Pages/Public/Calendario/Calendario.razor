@@ -55,18 +55,18 @@ else
 		isProcessing = true;
 		if (!_isPastMode)
 		{
-			var result = await _calendarioService.ObtenerActuales();
-			if (result != null && result.Exito)
+			var resultActual = await _calendarioService.ObtenerActuales();
+			if (resultActual != null && resultActual.Exito)
 			{
-				CalendarioEventos = result.Data;
+				CalendarioEventos = resultActual.Data;
 			}
 		}
 		else
 		{
-			var result = await _calendarioService.ObtenerPasados();
-			if (result != null && result.Exito)
+			var resultPasado = await _calendarioService.ObtenerPasados();
+			if (resultPasado != null && resultPasado.Exito)
 			{
-				CalendarioEventos = result.Data;
+				CalendarioEventos = resultPasado.Data;
 			}
 		}
 		isProcessing = false;
