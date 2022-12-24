@@ -22,6 +22,7 @@ namespace AlAnonFront.Models.Dtos
         public string Numero { get; set; } = "";
         public string NumeroDeSala { get; set; } = "";
         public string Contraseña { get; set; } = "";
+        public string Notas { get; set; } = "";
 
     }
 }
