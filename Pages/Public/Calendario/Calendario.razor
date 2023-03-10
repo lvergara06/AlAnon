@@ -15,7 +15,7 @@
 }
 else
 {
-	<MudSwitch Class="ps-1" Checked="_isPastMode" T="bool" CheckedChanged="@(() => PastCurrentMode())" Color="Color.Primary">Eventos Pasados</MudSwitch>
+	<MudSwitch Class="d-flex justify-content-end" Checked="_isPastMode" T="bool" CheckedChanged="@(() => PastCurrentMode())" Color="Color.Primary">Eventos Pasados</MudSwitch>
 	<MudDataGrid T="CalendarioEventoDto" ReadOnly="true" Items="@CalendarioEventos"
 			 ColumnResizeMode="@ResizeMode.Column" SortMode="@SortMode.Single"
 			 Bordered="true" Dense="true" Striped="true" Outlined="true"
