@@ -1,7 +1,7 @@
 ﻿@page "/publico/invitaciones"
 
 @using System.Globalization
-@inject IInvitacionRepository _invitacionRepository
+@inject IInvitacionService _invitacionService
 @inject IJSRuntime _jsRuntime
 
 <h4 class="card-title text-primary">Invitaciones</h4>
@@ -68,17 +68,17 @@ else
             int timezoneOffsetInMinutes = await _jsRuntime.InvokeAsync<int>("blazorGetTimezoneOffset");
             // Create a DateTimeOffset object based on the local timezone offset
             localTime = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromMinutes(timezoneOffsetInMinutes));
-            await ObtenerInvitacionesActuales(localTime.LocalDateTime);
+            await ObtenerInvitacionesActuales();
         }
 
     }
 
-    private async Task ObtenerInvitacionesActuales(DateTime today)
+    private async Task ObtenerInvitacionesActuales()
     {
 
         isLoading = true;
         StateHasChanged();
-        var result = await _invitacionRepository.ObtenerInvitacionesActuales(today);
+        var result = await _invitacionService.ObtenerInvitacionesActuales(localTime.Offset.Hours.ToString());
         if (result != null && result.Exito)
         {
             ListaDeInvitaciones = result.Data;
