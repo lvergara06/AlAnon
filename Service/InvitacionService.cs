@@ -30,7 +30,7 @@ namespace AlAnonFront.Service
 
         public async Task<RespuestaDto<List<InvitacionDto>>> ObtenerInvitacionesActuales(string offset)
         {
-            var response = await _httpClient.GetAsync("/api/Invitacion/ObtenerActuales" + offset);
+            var response = await _httpClient.GetAsync("/api/Invitacion/ObtenerActuales" + (int.Parse(offset) * -1).ToString() );
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
