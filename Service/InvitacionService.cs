@@ -28,9 +28,9 @@ namespace AlAnonFront.Service
             throw new NotImplementedException();
         }
 
-        public async Task<RespuestaDto<List<InvitacionDto>>> ObtenerInvitacionesActuales(string offset)
+        public async Task<RespuestaDto<List<InvitacionDto>>> ObtenerInvitacionesActuales(string today)
         {
-            var response = await _httpClient.GetAsync("/api/Invitacion/ObtenerActuales" + (int.Parse(offset) * -1).ToString() );
+            var response = await _httpClient.GetAsync("/api/Invitacion/ObtenerActuales" + (today));
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -39,7 +39,7 @@ namespace AlAnonFront.Service
                 return respuesta;
             }
             var respuestaError = new RespuestaDto<List<InvitacionDto>>();
-            respuestaError.Error = "($Error en InvitacionService: Could not get api/Invitacion/ObtenerActuales/{offset})";
+            respuestaError.Error = "Error en InvitacionService: Could not get api/Invitacion/ObtenerActuales" + today;
             respuestaError.Exito = false;
             return respuestaError;
         }

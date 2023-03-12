@@ -9,7 +9,7 @@
 {
     //Loading Symbol
     <div class="text-center pt-4">
-        <img src="/images/loading.gif">
+        <img src="/Images/loading.gif">
     </div>
 }
 else
@@ -58,6 +58,7 @@ else
     DateTimeOffset localTime;
     public String monthInSpanish = String.Empty;
     public CultureInfo culture = new CultureInfo("es-ES");
+    public String localTimeFormattedString = String.Empty;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -68,6 +69,7 @@ else
             int timezoneOffsetInMinutes = await _jsRuntime.InvokeAsync<int>("blazorGetTimezoneOffset");
             // Create a DateTimeOffset object based on the local timezone offset
             localTime = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromMinutes(timezoneOffsetInMinutes));
+            localTimeFormattedString = localTime.LocalDateTime.ToString("yyyyMMdd");
             await ObtenerInvitacionesActuales();
         }
 
@@ -78,7 +80,7 @@ else
 
         isLoading = true;
         StateHasChanged();
-        var result = await _invitacionService.ObtenerInvitacionesActuales(localTime.Offset.Hours.ToString());
+        var result = await _invitacionService.ObtenerInvitacionesActuales(localTimeFormattedString);
         if (result != null && result.Exito)
         {
             ListaDeInvitaciones = result.Data;
