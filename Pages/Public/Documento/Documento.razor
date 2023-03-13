@@ -49,7 +49,7 @@ else
     {
         isLoading = true;
         StateHasChanged();
-        var result = await _documentoService.ObtenerDocumentos();
+        var result = await _documentoService.Obtener();
         if (result != null && result.Exito)
         {
             documentos = result.Data;

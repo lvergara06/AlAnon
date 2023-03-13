@@ -16,6 +16,7 @@ builder.Services.AddScoped<IInfoService, InfoService>();
 builder.Services.AddScoped<ICalendarioService, CalendarioService>();
 builder.Services.AddScoped<IBoletinService, BoletinService>();
 builder.Services.AddScoped<IInvitacionService, InvitacionService>();
+builder.Services.AddScoped<IDocumentoService, DocumentoService>();
 //builder.Services.AddBlazoredLocalStorage();
 //builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 //builder.Services.AddAuthorizationCore();
