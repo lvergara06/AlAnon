@@ -14,3 +14,9 @@ window.onload = function () {
         // Your custom options
     });
 }
+
+function resizeCarouselItem(img) {
+    var itemContainer = img.parentElement.parentElement.parentElement.parentElement;
+    var itemHeight = img.height;
+    itemContainer.style.height = itemHeight + "px";
+}
