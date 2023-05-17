@@ -30,7 +30,7 @@ namespace AlAnonFront.Service
 
         public async Task<RespuestaDto<List<InvitacionDto>>> ObtenerInvitacionesActuales(string today)
         {
-            var response = await _httpClient.GetAsync("/api/Invitacion/ObtenerActuales" + (today));
+            var response = await _httpClient.GetAsync("/api/Invitacion/ObtenerActuales?today=" + (today));
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -40,6 +40,22 @@ namespace AlAnonFront.Service
             }
             var respuestaError = new RespuestaDto<List<InvitacionDto>>();
             respuestaError.Error = "Error en InvitacionService: Could not get api/Invitacion/ObtenerActuales" + today;
+            respuestaError.Exito = false;
+            return respuestaError;
+        }
+
+        public async Task<RespuestaDto<List<InvitacionDto>>> ObtenerInvitacionesDeLaSemana(string today)
+        {
+            var response = await _httpClient.GetAsync("/api/Invitacion/ObtenerActualesDeLaSemana?today=" + (today));
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var respuesta = JsonConvert.DeserializeObject<RespuestaDto<List<InvitacionDto>>>(content);
+
+                return respuesta;
+            }
+            var respuestaError = new RespuestaDto<List<InvitacionDto>>();
+            respuestaError.Error = "Error en InvitacionService: Could not get api/Invitacion/ObtenerActualesDeLaSemana" + today;
             respuestaError.Exito = false;
             return respuestaError;
         }

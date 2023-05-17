@@ -89,7 +89,7 @@ else
 	{
 
 		isLoading = true;
-		var result = await _invitacionService.ObtenerInvitacionesActuales(localTime.LocalDateTime.ToString("yyyyMMdd"));
+		var result = await _invitacionService.ObtenerInvitacionesDeLaSemana(localTime.LocalDateTime.ToString("yyyyMMdd"));
 		if (result != null && result.Exito)
 		{
 			ListaDeInvitaciones = result.Data;

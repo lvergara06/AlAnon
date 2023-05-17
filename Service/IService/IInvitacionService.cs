@@ -8,5 +8,6 @@ namespace AlAnonFront.Service.IService
         public Task<RespuestaDto<List<InvitacionDto>>> ObtenerInvitaciones();
         public Task<RespuestaDto<List<InvitacionDto>>> ObtenerInvitacionesDelMes(DateTime firstDayOfMonth);
         public Task<RespuestaDto<List<InvitacionDto>>> ObtenerInvitacionesActuales(string today);
+        public Task<RespuestaDto<List<InvitacionDto>>> ObtenerInvitacionesDeLaSemana(string today);
     }
 }
