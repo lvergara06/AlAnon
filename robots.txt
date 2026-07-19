@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.eptx-al-anon.com/sitemap.xml
+
+# Disallow specific paths that shouldn't be indexed
+Disallow: /bin/
+Disallow: /obj/
+Disallow: /_framework/
+Disallow: /_content/
+Disallow: /css/bootstrap/
+Disallow: /js/
+
+# Allow important static resources
+Allow: /Images/
+Allow: /css/app.css
+Allow: /favicon.ico
