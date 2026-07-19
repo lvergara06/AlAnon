@@ -46,13 +46,9 @@ else{
 	private bool isLoading { get; set; } = false;
 	private BoletinDto BoletinDto { get; set; } = new();
 
-	protected override async Task OnAfterRenderAsync(bool firstRender)
+	protected override async Task OnInitializedAsync()
 	{
-		//Only load the categories the first time the page is rendered
-		if (firstRender)
-		{
-			await ObtenerBoletin();
-		}
+		await ObtenerBoletin();
 	}
 
 	private async Task ObtenerBoletin()
@@ -60,7 +56,7 @@ else{
 		isLoading = true;
 		StateHasChanged();
 		var result = await _boletinService.Obtener();
-		if (result != null && result.Exito)
+		if (result != null && result.Exito && result.Data != null)
 		{
 			BoletinDto = result.Data;
 		}
